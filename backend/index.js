@@ -13,6 +13,9 @@ var routes          = require('./routes'),
     env             = require('./env'),
     log             = require('./log');
 
+var escape = require('pg-escape');
+var fs = require('fs');
+
 // Create the server instance
 var app = express();
 // Serves our static assets
@@ -35,6 +38,71 @@ async.series([
         db.setup(app, callback);
     },
     function(callback) {
+        // TODO
+        // return callback();
+        // Add database data if not exists
+        var Song = db.models.Song;
+        Song.count().then(function(count) {
+            if (count < 1) {
+                // Require spotify data
+                var artists = require('./data/artists.json'),
+                    albums = require('./data/albums.json'),
+                    songs = require('./data/songs.json');
+                // Get the other models
+                var Artist = db.models.Artist,
+                    Album = db.models.Album;
+                // Sanitize the data
+                artists = artists.map(function(artist) {
+                    // Add to the id map
+                    return {
+                        name: artist.name,
+                        bio: '',
+                        genre: artist.genres.length > 0 ? artist.genres[0] : '',
+                        pictureUrl: (artist.images && artist.images[0]) ? artist.images[0].url : null,
+                        spotifyId: artist.id
+                    };
+                });
+                // Put in the database
+                Artist.bulkCreate(artists).then(function(createdArtists) {
+                    // Sanitize the data
+                    albums = albums.map(function(album) {
+                        return {
+                            name: album.name,
+                            artUrl: (album.images && album.images[0]) ? album.images[0].url : null,
+                            spotifyId: album.id,
+                            artistRef: album.artistId
+                        };
+                    });
+                    // Put in the database
+                    Album.bulkCreate(albums).then(function(ca) {
+                        // Sanitize the data
+                        console.log('Bulding query');
+                        var query = 'insert into \"Songs\" (name, "audioUrl", "lengthInSeconds", "spotifyId", "albumRef", "createdAt", "updatedAt") values ' + songs.map(function(song) {
+                            var stuff = {
+                                name: song.name,
+                                audioUrl: (song.external_url) ? song.external_url.spotify : null,
+                                lengthInSeconds: song.duration_ms / 1000,
+                                spotifyId: song.id,
+                                albumRef: song.albumId
+                            };
+                            return '(' + escape.literal(stuff.name) + ',' + escape.literal(stuff.audioUrl) + ',' + stuff.lengthInSeconds + ',' + escape.literal(stuff.spotifyId) + ',' + (stuff.albumRef) + ',\'2015-03-23 17:47:38.523-04\',\'2015-03-23 17:47:38.523-04\')';
+                        }).join(',') + ';';
+                        console.log('POST BUILD');
+                        fs.writeFileSync('songs.sql', query);
+                        callback();
+                    }).catch(function(err) {
+                        callback(err);
+                    });
+                }).catch(function(err) {
+                    callback(err);
+                });
+            }
+        }).catch(function(err) {
+            callback(err);
+        });
+    },
+    function(callback) {
+        console.log('got here');
         // Authorization control
         app.use(expressJWT({
             secret: env.get().tokenSecret

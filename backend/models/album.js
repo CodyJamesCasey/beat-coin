@@ -9,7 +9,10 @@ module.exports = {
         if (!model) {
             model = db.define(MODEL_ID, {
                 name:   Sequelize.STRING,
-                artUrl: Sequelize.STRING
+                artUrl: Sequelize.STRING,
+                spotifyId:  Sequelize.STRING,
+                artistRef: Sequelize.STRING,
+                artistName: Sequelize.STRING
             });
         }
         return model;

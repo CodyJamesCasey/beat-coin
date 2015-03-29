@@ -26,7 +26,7 @@ var artistQuery = function(results, letter) {
     };
 };
 
-var albumQuery = function(results, artistId) {
+var albumQuery = function(results, artistId, artistName) {
     return function(callback) {
         request.get('https://api.spotify.com/v1/artists/' + artistId + '/albums')
             .set('Accept', 'application/json')
@@ -35,8 +35,9 @@ var albumQuery = function(results, artistId) {
                     callback(err);
                 } else if (res.ok && res.body.items) {
                     async.each(res.body.items, function(album, _callback) {
+                        album.artistId = artistId;
+                        album.artistName = artistName;
                         results.push(album);
-                        console.log('album', results.length);
                         _callback();
                     }, callback);
                 } else {
@@ -55,6 +56,7 @@ var songQuery = function(results, albumId) {
                     callback(err);
                 } else if (res.ok && res.body.items) {
                     async.each(res.body.items, function(song, _callback) {
+                        song.albumId = albumId;
                         results.push(song);
                         console.log('song', results.length);
                         _callback();
@@ -111,7 +113,7 @@ var loadAlbums = function(artists, callback) {
         var albumQueries = [],
             albums = [];
         for (var i = 0; i < artists.length; i++) {
-            albumQueries.push(albumQuery(albums, artists[i].id));
+            albumQueries.push(albumQuery(albums, artists[i].id, artists[i].name));
         }
         async.parallel(albumQueries, function(err) {
             if (err) {
@@ -130,6 +132,7 @@ var loadAlbums = function(artists, callback) {
 };
 
 var loadSongs = function(albums, callback) {
+    console.log('loadSongs');
     if (fs.existsSync('songs.json')) {
         fs.readFile('songs.json', function(err, songs) {
             if (err) {
@@ -165,10 +168,12 @@ module.exports = function(callback) {
         if (err) {
             callback(err);
         } else {
+            console.log('got artists', artists.length);
             loadAlbums(artists, function(err, albums) {
                 if (err) {
                     callback(err);
                 } else {
+                    console.log('got albums', albums.length);
                     loadSongs(albums, function(err, songs) {
                         if (err) {
                             callback(err);
