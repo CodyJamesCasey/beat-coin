@@ -10,6 +10,18 @@ var Player = React.createClass({
 			albumPicture: '/static/img/album-art/TheFratellis-CostelloMusic.jpg'
 		}
 	}, 
+	songYes: function(){
+		document.getElementById("buy-song").style.display = "none";
+	},
+	songNo: function(){
+		document.getElementById("buy-song").style.display = "none";
+	},
+	albumYes: function(){
+		document.getElementById("buy-album").style.display = "none";
+	},
+	albumNo: function(){
+		document.getElementById("buy-album").style.display = "none";
+	},
 	render: function(){
 		this.props.artistPicture = '/static/img/artist/TheFratellis.jpg';
 		var albumTitle = 'Costello Music';
@@ -32,6 +44,28 @@ var Player = React.createClass({
             	</div>
             	<Album albumTitle = {albumTitle} albumPicture = {albumPicture}/>
             	<SongList/>
+            	<div id="buy-song">
+		        	<div id="buy">Buy this song?</div>
+		        	<div id="choice">
+		        		<div id ="yes" onClick={this.songYes}>
+		        			<p>yes</p>
+	        			</div>
+		        		<div id ="no" onClick={this.songNo}>
+		        			<p>no</p>
+	        			</div>
+		        	</div>
+		        </div>
+		        <div id="buy-album">
+		        	<div id="buy">Buy this album?</div>
+		        	<div id="choice">
+		        		<div id ="yes" onClick={this.albumYes}>
+		        			<p>yes</p>
+	        			</div>
+		        		<div id ="no" onClick={this.albumNo}>
+		        			<p>no</p>
+	        			</div>
+		        	</div>
+		        </div>
             	<div id="song-timeline">
             		<div id="controls">
             		</div>

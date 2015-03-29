@@ -2,9 +2,9 @@ var React   		= require('react');
 
 var Album = React.createClass({
 
-	buy: function(){
-		alert("buy album");
-	},
+	buyAlbum: function(event) {
+    	document.getElementById("buy-album").style.display = "inline-block";
+  	},
 	getDefaultProps: function(){
 		return{
 			albumTitle: 'Unknown Album',
@@ -24,7 +24,7 @@ var Album = React.createClass({
         			<div id="album-title">
         				{albumTitle}
         			</div>
-        			<div id="buy-album" onClick={this.buy}>
+        			<div id="album-purchase" onClick={this.buyAlbum}>
         				<i className="fa fa-bitcoin fa-2x"></i>
         			</div>
         		</div>

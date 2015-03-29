@@ -6,7 +6,7 @@ var Song 			= React.createClass({
     alert('play song ' + this.props.songNumber);
   	},
 	buySong: function(event) {
-    alert('buy song ' + this.props.songNumber);
+    	document.getElementById("buy-song").style.display = "inline-block";
   	},
 	getDefaultProps: function(){
 		return{

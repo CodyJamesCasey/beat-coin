@@ -3,7 +3,8 @@ var Player  = require('./player.js');
 
 var Main = React.createClass({
 	search: function(){
-		alert("search");
+		var search = document.getElementById("search").value;
+		alert(search);
 	},
 	getDefaultProps: function(){
 		return{
@@ -11,7 +12,7 @@ var Main = React.createClass({
 		}
 	}, 
     render: function() {
-    	this.props.profilePicture = '/static/img/users/cody_casey.jpg'
+    	this.props.profilePicture = '/static/img/users/cody_casey.jpg';
     	var divStyle = {
   			backgroundImage: 'url(' + this.props.profilePicture + ')'
 		};
