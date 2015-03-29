@@ -1,0 +1,212 @@
+@import "./global.less";
+@import "./404.less";
+main {
+    background-color: @cream-cheese;
+    color: @whipped-cream;
+    #menu {
+        position: absolute;
+        right: 50px;
+        top: -50px;
+        width: 300px;
+        #profile-pic {
+            position: absolute;
+            right: 50px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            text-align: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+        #buttons {
+            position: absolute;
+            top: 100px;
+            right: 0px;
+            button {
+                background-color: @dark-cherry;
+                color: @whipped-cream;
+                border-radius: 25%;
+                height: 50px;
+                width: 100px;
+                font-size: 24px;
+            }
+        }
+    }
+    #search-bar {
+        background-color: @dark-cherry;
+        position: relative;
+        top: 50px;
+        height: 50px;
+        width: 425px;
+        margin: auto;
+        #search {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            background-color: @cherry;
+            color: @whipped-cream;
+            height: 40px;
+            width: 365px;
+            border: 0px;
+            font-size: 24px;
+        }
+        #search-icon {
+            position: absolute;
+            right: 0px;
+            height: 50px;
+            width: 50px;
+            background-color: @whipped-cream;
+            i {
+                height: 50px;
+                width: 50px;
+                background-color: @crust;
+            }
+        }
+    }
+    #player {
+        position: relative;
+        top: 125px;
+        height: 600px;
+        width: 1300px;
+        margin: auto;
+        background-color: @dark-cherry;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        #artist-label {
+            position: absolute;
+            top: -78px;
+            left: 100px;
+            padding: 10;
+            padding-left: 30px;
+            background-color: @crust;
+            color: @whipped-cream;
+        }
+        #img-div {
+            position: absolute;
+            height: 600px;
+            width: 1300px;
+            margin: auto;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            opacity: 0.1;
+        }
+        #artist-picture {
+            position: absolute;
+            top: -125px;
+            left: -125px;
+            background-color: red;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            display: inline-block;
+            text-align: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+        #album {
+            background-color: red;
+            display: inline-block;
+            vertical-align: middle;
+            height: 300px;
+            width: 300px;
+            margin: auto 25px;
+            #album-art {
+                height: 300px;
+                width: 300px;
+                background-image: url(/static/img/album-art/TheFratellis-CostelloMusic.jpg);
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+            }
+            #album-info {
+                background-color: @cherry;
+                #album-title {
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin: 10px 20px;
+                    font-size: 24px;
+                }
+                #buy-album {
+                    display: inline-block;
+                    vertical-align: middle;
+                    height: 30px;
+                    width: 30px;
+                    margin: auto 30px;
+                    i {
+                        height: 30px;
+                        width: 30px;
+                    }
+                }
+            }
+        }
+        #song-list {
+            background-color: @cherry;
+            display: inline-block;
+            vertical-align: middle;
+            height: 500px;
+            width: 850px;
+            margin: 50px 25px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            border-radius: 2%;
+            .song {
+                position: relative;
+                color: @whipped-cream;
+                width: 100%;
+                margin: 5px 20px;
+                height: 50px;
+                font-size: 24px;
+                text-align: center;
+                background-color: transparent;
+                border: 0;
+                .left-button {
+                    position: absolute;
+                    left: 0px;
+                    right: 150px;
+                    height: 30px;
+                    transform: translateY(50%);
+                    .song-number {
+                        position: absolute;
+                        left: 25px;
+                    }
+                    .song-title {
+                        position: absolute;
+                        left: 75px;
+                    }
+                    .song-length {
+                        position: absolute;
+                        right: 150px;
+                    }
+                }
+                .right-button {
+                    position: absolute;
+                    right: 50px;
+                    height: 30px;
+                    width: 30px;
+                    transform: translateY(50%);
+                    .song-purchase {
+                        position: absolute;
+                        right: 0px;
+                        height: 30px;
+                        width: 30px;
+                        i {
+                            height: 30px;
+                            width: 30px;
+                        }
+                    }
+                }
+            }
+        }
+        #song-timeline {
+            position: absolute;
+            bottom: 0px;
+            background-color: @crust;
+            height: 35px;
+            width: 100%;
+        }
+    }
+}

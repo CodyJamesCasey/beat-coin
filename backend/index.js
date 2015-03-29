@@ -8,7 +8,6 @@ var express         = require('express'),
     bodyParser      = require('body-parser');
 
 var routes          = require('./routes'),
-    xmpp            = require('./xmpp'),
     db              = require('./db'),
     util            = require('./util'),
     env             = require('./env'),
@@ -16,6 +15,8 @@ var routes          = require('./routes'),
 
 // Create the server instance
 var app = express();
+// Serves our static assets
+app.use('/static', express.static(path.join(__dirname, '..', 'public')));
 // Strap up the request logger
 app.use(morgan('dev'));
 // Reads JSON request bodies
@@ -34,18 +35,15 @@ async.series([
         db.setup(app, callback);
     },
     function(callback) {
-        // Start the XMPP server
-        xmpp.start();
-        callback();
-    },
-    function(callback) {
         // Authorization control
         app.use(expressJWT({
             secret: env.get().tokenSecret
         }).unless({
             path: [
                 '/api/authenticate',
-                '/api/register'
+                '/api/register',
+                '/',
+                '/static/*'
             ]
         }));
         // Error handling middleware
