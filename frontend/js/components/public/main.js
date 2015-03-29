@@ -1,10 +1,18 @@
 var React   = require('react');
 var Player  = require('./player.js');
+var request = require('superagent');
 
 var Main = React.createClass({
 	search: function(){
 		var search = document.getElementById("search").value;
-		alert(search);
+		request
+    	.get('/api')
+    	.query('search=laid')
+    	.end(function(err, res){
+    	});
+    	if(res.body.songs.length > 0){
+    		alert(res.body.songs[0].name);
+    	}
 	},
 	getDefaultProps: function(){
 		return{
