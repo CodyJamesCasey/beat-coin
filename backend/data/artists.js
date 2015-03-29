@@ -36,7 +36,6 @@ var albumQuery = function(results, artistId) {
                 } else if (res.ok && res.body.items) {
                     async.each(res.body.items, function(album, _callback) {
                         results.push(album);
-                        console.log('album', results.length);
                         _callback();
                     }, callback);
                 } else {
@@ -130,6 +129,7 @@ var loadAlbums = function(artists, callback) {
 };
 
 var loadSongs = function(albums, callback) {
+    console.log('loadSongs');
     if (fs.existsSync('songs.json')) {
         fs.readFile('songs.json', function(err, songs) {
             if (err) {
@@ -165,10 +165,12 @@ module.exports = function(callback) {
         if (err) {
             callback(err);
         } else {
+            console.log('got artists', artists.length);
             loadAlbums(artists, function(err, albums) {
                 if (err) {
                     callback(err);
                 } else {
+                    console.log('got albums', albums.length);
                     loadSongs(albums, function(err, songs) {
                         if (err) {
                             callback(err);

@@ -11,7 +11,8 @@ module.exports = {
                 name:       Sequelize.STRING,
                 bio:        Sequelize.TEXT,
                 genre:      Sequelize.STRING,
-                pictureUrl: Sequelize.STRING
+                pictureUrl: Sequelize.STRING,
+                spotifyId:  Sequelize.STRING
             });
         }
         return model;
