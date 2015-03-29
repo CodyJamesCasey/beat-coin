@@ -18,6 +18,9 @@ main {
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
+            @media screen and (max-width: 600px) {
+                display: none;
+            }
         }
         #buttons {
             position: absolute;
@@ -74,6 +77,9 @@ main {
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;
+        @media screen and (max-width: 600px) {
+            width: auto;
+        }
         #artist-label {
             position: absolute;
             top: -78px;
@@ -82,6 +88,11 @@ main {
             padding-left: 30px;
             background-color: @crust;
             color: @whipped-cream;
+            @media screen and (max-width: 600px) {
+                text-align: center;
+                margin: auto;
+                position: initial;
+            }
         }
         #img-div {
             position: absolute;
@@ -92,6 +103,10 @@ main {
             background-repeat: no-repeat;
             background-position: center center;
             opacity: 0.1;
+            @media screen and (max-width: 600px) {
+                margin: auto;
+                width: 500px;
+            }
         }
         #artist-picture {
             position: absolute;
@@ -106,6 +121,9 @@ main {
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
+            @media screen and (max-width: 600px) {
+                display: none;
+            }
         }
         #album {
             background-color: red;
@@ -114,6 +132,13 @@ main {
             height: 300px;
             width: 300px;
             margin: auto 25px;
+            @media screen and (max-width: 600px) {
+                height: auto;
+                display: block;
+                width: 500px;
+                margin: auto;
+                text-align: center;
+            }
             #album-art {
                 height: 300px;
                 width: 300px;
@@ -121,6 +146,9 @@ main {
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center center;
+                @media screen and (max-width: 600px) {
+                    display: none;
+                }
             }
             #album-info {
                 background-color: @cherry;
@@ -153,6 +181,12 @@ main {
             overflow-y: scroll;
             overflow-x: hidden;
             border-radius: 2%;
+            @media screen and (max-width: 600px) {
+                display: block;
+                margin: auto;
+                width: 500px;
+                border-radius: 0px;
+            }
             .song {
                 position: relative;
                 color: @whipped-cream;
@@ -169,17 +203,29 @@ main {
                     right: 150px;
                     height: 30px;
                     transform: translateY(50%);
+                    @media screen and (max-width: 600px) {
+                        left: 5px;
+                    }
                     .song-number {
                         position: absolute;
                         left: 25px;
+                        @media screen and (max-width: 600px) {
+                            left: 5px;
+                        }
                     }
                     .song-title {
                         position: absolute;
                         left: 75px;
+                        @media screen and (max-width: 600px) {
+                            left: 30px;
+                        }
                     }
                     .song-length {
                         position: absolute;
                         right: 150px;
+                        @media screen and (max-width: 600px) {
+                            left: 200px;
+                        }
                     }
                 }
                 .right-button {
@@ -188,6 +234,9 @@ main {
                     height: 30px;
                     width: 30px;
                     transform: translateY(50%);
+                    @media screen and (max-width: 600px) {
+                        left: 310px;
+                    }
                     .song-purchase {
                         position: absolute;
                         right: 0px;
