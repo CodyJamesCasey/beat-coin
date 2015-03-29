@@ -11,7 +11,8 @@ module.exports = {
                 name:               Sequelize.STRING,
                 audioUrl:           Sequelize.STRING,
                 lengthInSeconds:    Sequelize.INTEGER,
-                spotifyId:          Sequelize.STRING
+                spotifyId:          Sequelize.STRING,
+                albumRef:           Sequelize.STRING
             });
         }
         return model;

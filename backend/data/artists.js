@@ -26,7 +26,7 @@ var artistQuery = function(results, letter) {
     };
 };
 
-var albumQuery = function(results, artistId) {
+var albumQuery = function(results, artistId, artistName) {
     return function(callback) {
         request.get('https://api.spotify.com/v1/artists/' + artistId + '/albums')
             .set('Accept', 'application/json')
@@ -35,6 +35,8 @@ var albumQuery = function(results, artistId) {
                     callback(err);
                 } else if (res.ok && res.body.items) {
                     async.each(res.body.items, function(album, _callback) {
+                        album.artistId = artistId;
+                        album.artistName = artistName;
                         results.push(album);
                         _callback();
                     }, callback);
@@ -54,6 +56,7 @@ var songQuery = function(results, albumId) {
                     callback(err);
                 } else if (res.ok && res.body.items) {
                     async.each(res.body.items, function(song, _callback) {
+                        song.albumId = albumId;
                         results.push(song);
                         console.log('song', results.length);
                         _callback();
@@ -110,7 +113,7 @@ var loadAlbums = function(artists, callback) {
         var albumQueries = [],
             albums = [];
         for (var i = 0; i < artists.length; i++) {
-            albumQueries.push(albumQuery(albums, artists[i].id));
+            albumQueries.push(albumQuery(albums, artists[i].id, artists[i].name));
         }
         async.parallel(albumQueries, function(err) {
             if (err) {

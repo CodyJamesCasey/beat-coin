@@ -7,6 +7,7 @@ var gulp        = require('gulp'),
     clean       = require('rimraf'),
     plumber     = require('gulp-plumber'),
     replace     = require('gulp-replace'),
+    nodemon     = require('gulp-nodemon'),
     // Browserify-related imports
     browserify  = require('browserify'),
     source      = require('vinyl-source-stream'),
