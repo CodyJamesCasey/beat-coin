@@ -1,4 +1,5 @@
 var gulp        = require('gulp'),
+    nodemon     = require('nodemon'),
     // Generic imports
     fs          = require('fs'),
     Stream      = require('stream'),
@@ -32,7 +33,7 @@ var PUBLIC_FOLDER_NAME          = 'public',
     FRONTEND_LESS_FOLDER_NAME   = 'less',
     FRONTEND_IMG_FOLDER_NAME    = 'img',
     FRONTEND_VENDOR_FOLDER_NAME = 'vendor',
-    FRONTEND_HTML_FOLDER_NAME   = 'html',
+    FRONTEND_HTML_FOLDER_NAME   = 'pages',
     BACKEND_FOLDER_NAME         = 'backend',
     ENV_FOLDER_NAME             = 'env',
 

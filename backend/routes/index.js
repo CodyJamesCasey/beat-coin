@@ -24,7 +24,18 @@ exports.route = function(app, callback) {
             }, function(err) {
                 if (err) callback(err);
                 else {
-                    // Page routes
+                    // index page route
+                    log.debug('Loading resume page route');
+                    app.get('/', function(req, res) {
+                        res.sendFile(path.join(__dirname, '..', '..', 'public', 'pages', 'index.html'));
+
+                    });
+                    // 404 page route
+                    log.debug('Loading 404 page route');
+                    app.get('/*', function(req, res) {
+                        res.sendFile(path.join(__dirname, '..', '..', 'public', 'pages', '404.html'));
+
+                    });
                     // All routing now complete
                     log.info('Endpoint routing completed');
                     callback();

@@ -18,6 +18,8 @@ var fs = require('fs');
 
 // Create the server instance
 var app = express();
+// Serves our static assets
+app.use('/static', express.static(path.join(__dirname, '..', 'public')));
 // Strap up the request logger
 app.use(morgan('dev'));
 // Reads JSON request bodies
@@ -107,7 +109,9 @@ async.series([
         }).unless({
             path: [
                 '/api/authenticate',
-                '/api/register'
+                '/api/register',
+                '/',
+                '/static/*'
             ]
         }));
         // Error handling middleware

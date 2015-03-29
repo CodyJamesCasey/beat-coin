@@ -1,31 +1,33 @@
-var Router = React.createClass({
+var React   = require('react'),
+    Router  = require('react-router');
 
-	changePage: function(event){
-    	var currentPage = this.state.initialPage;
-    	currentPage = event;
-    	this.setState({currentPage: currentPage});
-	},
+// React-router variables
+var Route           = Router.Route,
+    RouteHandler    = Router.RouteHandler,
+    Redirect        = Router.Redirect,
+    DefaultRoute    = Router.DefaultRoute,
+    NotFoundRoute   = Router.NotFoundRoute;
 
-	getInitialState:function(){
-		return {
-			initialPage: 'home',
-			currentPage: ''
-		}
-	},
+// Authentication related page components
+var NotFound        = require('./components/404');
+// Publicly accessible page components
+var Public          = require('./components/public'),
+    Main            = require('./components/public/main');
 
-	componentWillMount: function(){
-  this.setState({currentPage: this.state.initialPage})
-	},
+// Authentication-required page components
+// TODO make the internal pages a thing
 
-	render: function(){
-	return (
-    <body>
-			<Header changePage={this.changePage} />
-			<MainPage currentPage={this.state.currentPage} />
-			<Footer currentPage={this.state.currentPage} />
-		</body>
-  	);
-	}
+// Routes representing the frontend
+var sitemap = (
+    <Route handler={RouteHandler}>
+        <Route name="public" path="/" handler={Public}>
+            <DefaultRoute name="main" handler={Main}/>
+        </Route>
+        <NotFoundRoute name="404" handler={NotFound}/>
+    </Route>
+);
+
+// Bind the routes to the DOM
+Router.run(sitemap, Router.HistoryLocation, function (Handler) {
+    React.render(<Handler/>, document.body);
 });
-
-React.render(<Router/>, document.body);
