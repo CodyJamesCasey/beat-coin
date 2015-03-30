@@ -189,7 +189,8 @@ gulp.task('clean', function() {
 gulp.task('server', function() {
     nodemon({
         script: path.join(BACKEND_FOLDER_PATH, BACKEND_ENTRY_POINT),
-        env:    require('./env/dev.json')
+        env:    require('./env/dev.json'),
+        ignore: ['frontend/*', 'gulpfile.js']
     });
 });
 
